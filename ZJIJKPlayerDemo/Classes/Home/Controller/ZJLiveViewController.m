@@ -27,15 +27,14 @@
 
 -(void)setUpAllView{
     
-    self.placeImgV = [[UIImageView alloc]init];
-    [self.view addSubview:_placeImgV];
+    [self.view addSubview:self.placeImgV];
     
-    [_placeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.placeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(0);
     }];
     
-    _placeImgV.contentMode = UIViewContentModeScaleAspectFill;
-    [_placeImgV sd_setImageWithURL:[NSURL URLWithString:_liveModel.creator.portrait]];
+    self.placeImgV.contentMode = UIViewContentModeScaleAspectFill;
+    [self.placeImgV sd_setImageWithURL:[NSURL URLWithString:_liveModel.creator.portrait]];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:(UIBarButtonItemStylePlain) target:self action:@selector(goBack)];
     
@@ -51,7 +50,7 @@
     
     IJKFFMoviePlayerController *player = [[IJKFFMoviePlayerController alloc] initWithContentURL:liveURL withOptions:nil];
     
-    [self.view insertSubview:player.view aboveSubview:_placeImgV];
+    [self.view insertSubview:player.view aboveSubview:self.placeImgV];
     [player.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -71,5 +70,12 @@
     [_player pause];
     [_player stop];
     [_player shutdown];
+}
+
+-(UIImageView *)placeImgV{
+    if (!_placeImgV) {
+        _placeImgV = [[UIImageView alloc]init];
+    }
+    return _placeImgV;
 }
 @end
